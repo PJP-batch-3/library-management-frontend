@@ -1,12 +1,19 @@
 /* Carousel */
+  .owl-carousel {
+    display: flex;
+  }
 
-.owl-carousel .carouselss-item {
+  .row {
+    overflow: visible;
+  }
+
+/* .owl-carousel .carouselss-item {
     background: #fff;
     border: 1px solid #D9D7DA;
     text-align: center;
-  }
+  } */
   
-  .owl-carousel .carouselss-item-text {
+  /* .owl-carousel .carouselss-item-text {
     padding: 10px;
   }
 
@@ -16,7 +23,7 @@
     font-size: .8em;
     font-weight: 600;
     height: 30px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     overflow:hidden;
     text-transform: uppercase;
   }
@@ -28,6 +35,124 @@
     height: 38px;
     margin: 0;
     overflow: hidden;
+  } */
+
+  .owl-carousel .carouselss-item .item-image {
+    height: 18.5rem;
+    width: 100%;
+    object-fit: cover;
+  }
+/*    
+  .owl-carousel:hover .carouselss-item {
+    transform: translateX(-10%);
+  }
+  
+  .carouselss-item:hover ~ .carouselss-item {
+    transform: translate(10%);
+  }
+  
+  .owl-carousel .carouselss-item:hover {
+    transform: scale(1.2);
+    z-index: 1;
+    overflow: visible;
+  } */
+
+  .overlay-books {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .carouselss-item:hover .overlay-books {
+    opacity: 1;
+  }
+
+  .owl-carousel .carouselss-item {
+    opacity: 0.99;
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .owl-carousel .carouselss-item:before {
+    content: "";
+    background: linear-gradient(from top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2;
+    transition-property: bottom, opacity;
+    transition-duration: 0.05s;
+  }
+  .owl-carousel .carouselss-item img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .owl-carousel .carouselss-item .carouselss-item-text {
+    font-size: 16px;
+    padding: 20px;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+  }
+
+  .owl-carousel .carouselss-item .carouselss-item-text span {
+    display: block;
+    opacity: 0;
+    position: relative;
+    top: 100px;
+    transition-property: top, opacity;
+    transition-duration: 0.3s;
+    transition-delay: 0s;
+  }
+
+  .owl-carousel .carouselss-item .carouselss-item-text .title {
+    line-height: 1;
+    font-weight: 600;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .owl-carousel .carouselss-item .carouselss-item-text .info {
+    line-height: 1.2;
+    font-size: 18px;
+  }
+
+  .owl-carousel .carouselss-item .carouselss-item-text .info .books-rating {
+    color: rgb(255, 82, 82);
+    font-weight: 600;
+  }
+
+  .owl-carousel .carouselss-item:focus:before,
+  .owl-carousel .carouselss-item:focus span, .owl-carousel .carouselss-item:hover:before,
+  .owl-carousel .carouselss-item:hover span {
+    opacity: 1;
+  }
+  .owl-carousel .carouselss-item:focus:before, .owl-carousel .carouselss-item:hover:before {
+    top: 50%;
+  }
+  .owl-carousel .carouselss-item:focus span, .owl-carousel .carouselss-item:hover span {
+    top: 0;
+  }
+  .owl-carousel .carouselss-item:focus .title, .owl-carousel .carouselss-item:hover .title {
+    transition-delay: 0.05s;
+  }
+  .owl-carousel .carouselss-item:focus .info, .owl-carousel .carouselss-item:hover .info {
+    transition-delay: 0.05s;
   }
   
   /* Nav buttons */
@@ -64,3 +189,7 @@
   .owl-carousel .next-slide:hover{
       opacity: 1;
   }   
+
+  .index-genre-heading {
+    background-color:rgb(201, 195, 195);
+  }
