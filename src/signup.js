@@ -29,7 +29,7 @@ $('#signup-button').click(function () {
 
             var nav_out = '<div class="nav nav-pills" id="all-genre">';
             user_name = user['fullname'];
-            user_token = user['token'];
+            user_token = obj['token'];
             user_id = user['id'];
 
             var nav_items = '<ul class="navbar-nav ml-auto">\
