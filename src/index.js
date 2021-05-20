@@ -12,7 +12,7 @@ $.ajax(genreUrl, {
         genre_name = g // Replace with proper variable name
         genres.push(genre_name)
         genres_out += '<div class="nav-item genre">\
-                            <a class="nav-link" href="#">' + genre_name + '</a>\
+                            <a class="nav-link" href="booksByGenre.html?genre='+ genre_name + '">' + genre_name + '</a>\
                         </div>';
     });
 
