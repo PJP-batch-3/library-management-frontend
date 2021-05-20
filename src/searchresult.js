@@ -36,6 +36,10 @@ $.ajax(searchUrl, {
 
     });
     $('#booksFound').html(book_out);
+    if(books.TheListOfBooks.length == 0){
+        var a = `<h2>No books found!!</h2>`;
+        $('#booksFound').html(a);
+    }
 }).catch(function (err) {
     console.error(err);
     $('#all-genre').html(error_msg);
