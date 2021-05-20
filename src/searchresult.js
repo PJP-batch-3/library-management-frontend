@@ -26,9 +26,10 @@ $.ajax(searchUrl, {
                         <div class="card">\
                             <img class="card-img-top" src=' + b.bookCover +' alt="Card image cap">\
                             <div class="card-body">\
-                            <h5 class="card-title"> Book Title' +b.title +'</h5>\
-                            <h5 class="card-title"> Book Title' +b.genre +'</h5>\
-                            <p class="card-text">'+ parseFloat(b.rating).toFixed(1) +' /5</p>\
+                            <h5 class="card-title"> Title: ' + b.title +'</h5>\
+                            <h5 class="card-title"> Genre: ' + b.genre +'</h5>\
+                            <h5 class="card-info"> Author: ' + b.author +'</h5>\
+                            <p class="card-text">'+ parseFloat(b.rating).toFixed(1) +' /5.0</p>\
                             <a href="#" class="btn btn-primary">Show More</a>\
                         </div>\
                     </div>\
