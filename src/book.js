@@ -1,5 +1,5 @@
 function getBookDetails(url) {
-    // make an ajax call to the rest server to book details
+    // make an ajax call to the rest server to fetch book details
     $.ajax(url, {
         method: 'GET',
     }).then(function (books) {
@@ -19,8 +19,10 @@ function getBookDetails(url) {
     });
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 function getReviews(url) {
-    // make an ajax call to the rest server to book details
+    // make an ajax call to the rest server to fetch reviews
     $.ajax(url, {
         method: 'GET',
     }).then(function (reviews) {
@@ -49,6 +51,7 @@ function displayReviews(reviews){
     $("#reviews").html(review_display);
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
 
 function getSimilarBooks(genre, isbn){
     var similarBooksUrl = baseUrl + "books/genre/" + genre
@@ -120,6 +123,25 @@ function displaySimilarBooks(books, ogIsbn) {
 }
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+
+function checkAvailability(url) {
+    // make an ajax call to the rest server to fetch book details
+    $.ajax(url, {
+        method: 'GET',
+    }).then(function (response) {
+        console.log(response)
+        if(response.Availability == null){
+            $("#borrow-button").html("<h3> Copies Currently Unavailable </h3>");
+            $("#borrow-button").prop('disabled', true);
+        }
+    }).catch(function (err) {
+        console.error(err);
+        $(dom_id).html(error_msg);
+    });
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 window.onload = function () {
     var url = document.location.href, params = url.split('?')[1].split('&')
@@ -133,4 +155,8 @@ window.onload = function () {
     // fetch book reviews
     var bookReviewsUrl = baseUrl + "books/" + isbn + "/reviews";
     getReviews(bookReviewsUrl)
+
+    // check if copies available for borrowing
+    var checkAvailableUrl = baseUrl + "books/available/" + isbn;
+    checkAvailability(checkAvailableUrl)
 }
