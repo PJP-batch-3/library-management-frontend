@@ -107,7 +107,7 @@
     </nav>
 
     <!-- Header -->
-    <div class="page-header header-filter" data-parallax="false"
+    <div class="page-header header-filter" data-parallax="false" 
         style="background-image: url('images/header_background.jpg')">
         <div class="container">
             <div class="row">
@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     </div>
     <!-- Fixed template for all pages end here -->
 
@@ -138,45 +138,51 @@
             <div class="section text-center">
 
                 <!-- Book card -->
-
-                <div class="book-card">
-                    <div class="book-image">
-                        <img alt="Book cover image" width="500" height="600">
-                        <h3><b> Book Rating: </b> X/5</h3>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="book-card">
+                            <div class="book-image">
+                                <img alt="Book cover image" width="500" height="600">
+                            </div>
+                            <h3><b> Book Rating: </b> X/5</h3>
+                        </div>  
                     </div>
-                    <div class="book-details">
-                        <b>
-                        <h2>Title :  </h2> 
-                        <h2>Author :  </h2> 
-                        <h2>Category :  </h2> 
-                        <h2>Publisher :  </h2> 
-                        <h2>Late Fees :  </h2> 
-                        <h2>Availability :  </h2> 
-
-                        <h3 align="Center">Rent for <input type="text" name="days" maxlength="3" > days </h3> 
-                        </b>
-                        <button class="button" type="button"><h3> Borrow Book </h3></button>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="book-details">
+                                <b>
+                                    <h2>Title :  </h2> 
+                                    <h2>Author :  </h2> 
+                                    <h2>Category :  </h2> 
+                                    <h2>Publisher :  </h2> 
+                                </b>
+                                <button class="btn btn-success" type="button"><h3> Borrow Book </h3></button>
+                            </div>
+                        </div>
                     </div>
+                        
                 </div>
+            </div>
+            
+                
 
                 <!-- Reviews -->
 
-                <div class="reviews">
-                    <h2><b>Reviews<b></h2>
-                    <div class="user-reviews">
-                        userid 1 : sample review 1 
-                    </div>
-                    <div class="user-reviews">
-                        userid 2 : sample review 2 
-                    </div>
-                    <button class="button" type="button"> ADD NEW REVIEW </button>
+            <div class="reviews">
+                <h2><b>Reviews<b></h2>
+                <div class="user-reviews">
+                    userid 1 : sample review 1 
                 </div>
+                <div class="user-reviews">
+                    userid 2 : sample review 2 
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="button"> ADD NEW REVIEW </button>
+            </div>
 
                 <!-- Similar Books -->
 
-                <div class="similar-books">
-                    <h2> <b> Similar Books </b></h2>
-                </div>
+            <div class="similar-books">
+                <h2> <b> Similar Books </b></h2>
             </div>
         </div>
     </div>
