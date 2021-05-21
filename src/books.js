@@ -41,15 +41,18 @@ function getBooks(url, dom_id) {
                     margin: 10,
                     stagePadding: 20,
                     nav: false,
+                    loop: (books.length>2)?true:false
                 },
                 600: {
                     items: 3,
                     margin: 15,
                     stagePadding: 50,
                     nav: false,
+                    loop: (books.length>3)?true:false
                 },
                 1092: {
-                    items: 5
+                    items: 5,
+                    loop: (books.length>5)?true:false
                 }
             }
         });
