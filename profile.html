@@ -69,30 +69,56 @@
             </div>
         </div>
     </div>
-    </div>
+    <!-- </div> -->
     <!-- Fixed template for all pages end here -->
 
     <div class="main main-raised">
-        <div class="container">
-            <!-- Main code goes here -->
-            <div class="section text-center" id="index-body-container">
-                
-
-                <div class="row mt-5">
-                    <div class="d-flex mb-2 text-left col-12 index-genre-heading">
-                        <h4 class="card-title">Currently Borrowed Books</h4>
+        <div class="profile-content">
+            <div class="container">
+                <!-- Main code goes here -->
+                <div class="section text-center" id="index-body-container">
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <div class="profile">
+                                <div class="avatar">
+                                    <img src="./images/default-user.png" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                </div>
+                            <div class="name">
+                                <h3 class="title" id='user-name'>Praduman Pannu</h3>
+                                <h6 id='user-email'>prp9812@gmail.com</h6>
+                                <button type="button" class="btn btn-danger" id='pay-fine-button'>Pay Fine</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="owl-carousel owl-theme" id="currently-borrowed-books">
-                        <!-- Fetched from server by profile.js -->
+                </div>
+                <div class="section text-center" id="index-body-container">
+                    <div class="row mt-5">
+                        <div class="d-flex mb-2 text-left col-12 index-genre-heading">
+                            <h4 class="card-title">Currently Borrowed Books</h4>
+                        </div>
+                        <div class="owl-carousel owl-theme" id="currently-borrowed-books">
+                            <!-- Fetched from server by profile.js -->
+                        </div>
+    
+                        <div class="d-flex mb-2 text-left col-12 index-genre-heading">
+                            <h4 class="card-title">Previously Borrowed Books</h4>
+                        </div>
+                        <div class="owl-carousel owl-theme" id="previously-borrowed-books">
+                            <!-- Fetched from server by profile.js -->    
+                        </div>
+    
+                        <div class="d-flex mb-2 text-left col-12 index-genre-heading">
+                            <h4 class="card-title">My Reviews</h4>
+                        </div>
+                        <div class="card text-left">
+                            <div class="card-body">
+                              <h5 class="card-title">Book 1</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">4/5</h6>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="card-link">Edit</a>
+                            </div>
+                        </div>                    
                     </div>
-
-                    <div class="d-flex mb-2 text-left col-12 index-genre-heading">
-                        <h4 class="card-title">Previously Borrowed Books</h4>
-                    </div>
-                    <div class="owl-carousel owl-theme" id="previously-borrowed-books">
-                        <!-- Fetched from server by profile.js -->    
-                    </div>
-                    
                 </div>
             </div>
         </div>

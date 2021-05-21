@@ -1,3 +1,29 @@
+function getUserDetails(token, url) {
+    // make an ajax call to the rest server to get the data
+    $.ajax(url, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (user) {
+        user = user.success;
+        // console.log(user);
+        $('#user-name').html(user.fullname);
+        $('#user-email').html(user.email);
+        var fine = parseFloat(user.fine).toFixed(1);
+        if(fine===0.0){
+            $('#pay-fine-button').html('No pending dues');
+            $('#pay-fine-button').prop('disabled', true);
+        } else{
+            $('#pay-fine-button').html('Pay Fine');
+            $('#pay-fine-button').prop('disabled', false);
+        }
+
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
 function getBorrowedUtil(books, dom_id){
     if(books.length){
         var books_out = '';
@@ -61,7 +87,7 @@ function getBorrowedBooks(token, url) {
             Authorization: 'JWT ' + token
         },
     }).then(function (books) {
-        console.log(books);
+        // console.log(books);
 
         var currentDomId = '#currently-borrowed-books';
         var previousDomId = '#previously-borrowed-books';
@@ -76,9 +102,13 @@ function getBorrowedBooks(token, url) {
 
 
 $( document ).ready(function() {
-    console.log( "ready!" );
+    // console.log( "ready!" );
     var token = sessionStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
+
+    // fetch user details
+    var userDetailsUrl = baseUrl + 'users';
+    getUserDetails(token, userDetailsUrl);
 
     // fetch borrowed books details
     var borrowedBooksUrl = baseUrl + 'users/borrowedBooks';
