@@ -19,67 +19,6 @@
     <!-- tiny slider-->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <style type="text/css">
-
-        .book-card{
-
-        }
-
-        .book-image{
-            position: relative;
-            width: 600px;
-            height: 700px;
-            top: 10px;
-            right: 450px;
-
-        }
-
-        .book-details{
-            position: relative;
-            border: 5px solid black;
-            width: 800px;
-            height: 670px;
-            bottom: 660px;
-            left: 450px;
-
-        }
-
-        .borrow-button{
-            padding-top: 25px;
-        }
-
-        .reviews{
-            padding: 15px;
-            position: relative;
-            border: 5px solid grey;
-            right: 100px;
-            bottom: 600px;
-            width: 1300px;
-        }
-        .user-reviews{
-            margin: 20px;
-            padding: 15px;
-            border: 2px solid black;
-        }
-        .similar-books{
-            position: relative;
-            border: 5px solid grey;
-            right: 100px;
-            bottom: 500px;
-            width: 1300px;
-            height: 500px;
-        }
-        input[type="text"]
-        {
-            width: 60px
-        }
-        .button{
-            background-color: #008CBA;
-            color: white;
-            margin: 15px;
-        }
-    </style>
 </head>
 
 <body>
@@ -107,7 +46,7 @@
     </nav>
 
     <!-- Header -->
-    <div class="page-header header-filter" data-parallax="false" 
+    <div class="page-header header-filter" data-parallax="false"
         style="background-image: url('images/header_background.jpg')">
         <div class="container">
             <div class="row">
@@ -116,7 +55,8 @@
                         <form class="card-body" display="inline" method="GET" action="books.html">
                             <div class="row">
                                 <div class="col-md-10 col-sm-8">
-                                    <input type="text" class="form-control" placeholder="Search" id="search" name="keyword">
+                                    <input type="text" class="form-control" placeholder="Search" id="search"
+                                        name="keyword" pattern="[\s\S]*\S[\s\S]*" required>
                                 </div>
                                 <div class="col-md-2 col-sm-4">
                                     <button type="submit" class="btn btn-primary btn-round inline">
@@ -129,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     </div>
     <!-- Fixed template for all pages end here -->
 
@@ -138,54 +78,68 @@
             <div class="section text-center">
 
                 <!-- Book card -->
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="book-card">
-                            <div class="book-image">
-                                <img alt="Book cover image" width="500" height="600">
-                            </div>
-                            <h3><b> Book Rating: </b> X/5</h3>
-                        </div>  
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="book-details">
-                                <b>
-                                    <h2>Title :  </h2> 
-                                    <h2>Author :  </h2> 
-                                    <h2>Category :  </h2> 
-                                    <h2>Publisher :  </h2> 
-                                </b>
-                                <button class="btn btn-success" type="button"><h3> Borrow Book </h3></button>
-                            </div>
+                <div class="row m-3 p-3 border border-dark">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card w-75 mx-auto">
+                            <img class="img-fluid"
+                                src="https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9780/1413/9780141342559.jpg"
+                                alt="Book cover image">
                         </div>
+                        <h3><b> Book Rating: </b> X/5.0</h3>
                     </div>
-                        
+                    <div class="col-md-6 col-sm-12 text-left card-body flex-column d-flex">
+                        <b>
+                            <h3>Title: </h3>
+                            <h3>Author: </h3>
+                            <h3>Category: </h3>
+                            <h3>Publisher: </h3>
+                            <h3>Price: </h3>
+                            <h3>No. of Copies: </h3>
+                        </b>
+                        <button class="btn btn-primary btn-sm mt-auto">
+                            <h3> Borrow Book </h3>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-                
+
+
 
                 <!-- Reviews -->
 
-            <div class="reviews">
-                <h2><b>Reviews<b></h2>
-                <div class="user-reviews">
-                    userid 1 : sample review 1 
+                <div class="row m-3 mt-5">
+                    <div class="d-flex mb-2 text-left col-12 index-genre-heading">
+                        <h4 class="card-title">Reviews</h4>
+                    </div>
+                    <div class="card m-0">
+                        <div class="m-0 mb-1 text-left col-12">
+                            <h5 class="card-text">userid 1 : sample review 1</h5>
+                        </div>
+                        <div class="m-0 mb-1 text-left col-12">
+                            <h5 class="card-text">userid 2 : sample review 2</h5>
+                        </div>
+                        <!-- <div class="user-reviews">
+                        userid 1 : sample review 1
+                    </div>
+                    <div class="user-reviews">
+                        userid 2 : sample review 2
+                    </div> -->
+                        <button class="btn btn-primary m-2" type="button"> ADD NEW REVIEW </button>
+                    </div>
                 </div>
-                <div class="user-reviews">
-                    userid 2 : sample review 2 
-                </div>
-                <button class="btn btn-primary btn-lg btn-block" type="button"> ADD NEW REVIEW </button>
-            </div>
 
                 <!-- Similar Books -->
-
-            <div class="similar-books">
-                <h2> <b> Similar Books </b></h2>
+                <div class="row m-3 mt-5">
+                    <div class="d-flex mb-2 text-left col-12 index-genre-heading">
+                        <h4 class="card-title">Similar Books</h4>
+                    </div>
+                    <div class="owl-carousel owl-theme" id="most-popular-books">
+                        <!-- Fill using carousel similar to whats done in books.js -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 
     <footer class="footer footer-default">
         <div class="container">
@@ -220,7 +174,7 @@
     <script src="src/base.js" type="text/javascript"></script>
 
     <!-- Add ajax scripts here -->
-    
+
 </body>
 
 </html>
