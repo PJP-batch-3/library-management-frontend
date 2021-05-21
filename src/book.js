@@ -9,6 +9,7 @@ function getBookDetails(url) {
         $('#book-genre').html(books.Book.genre);
         $('#book-publisher').html(books.Book.publisher);
         $('#book-copies').html(books.Book.quantity);
+        $('#book-rating').html("Rating: "+parseFloat(books.Book.rating).toFixed(1)+"/5.0");
         $('#book-cover').attr('src', books.Book.bookCover)
 
         getSimilarBooks(books.Book.genre, books.Book.isbn);
