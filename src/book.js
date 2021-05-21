@@ -1,16 +1,21 @@
+var isbn = "";
+var token = sessionStorage.getItem('token');
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 function getBookDetails(url) {
     // make an ajax call to the rest server to fetch book details
     $.ajax(url, {
         method: 'GET',
     }).then(function (books) {
-        console.log(books.Book)
+        //console.log(books.Book)
         $('#book-title').html(books.Book.title);
         $('#book-author').html(books.Book.author);
         $('#book-genre').html(books.Book.genre);
         $('#book-publisher').html(books.Book.publisher);
         $('#book-copies').html(books.Book.quantity);
+        $('#book-rating').html("Rating: "+parseFloat(books.Book.rating).toFixed(1)+"/5.0");
         $('#book-cover').attr('src', books.Book.bookCover)
-
         getSimilarBooks(books.Book.genre, books.Book.isbn);
 
     }).catch(function (err) {
@@ -26,7 +31,7 @@ function getReviews(url) {
     $.ajax(url, {
         method: 'GET',
     }).then(function (reviews) {
-        console.log(reviews);
+        //console.log(reviews);
         displayReviews(reviews.ListOfReviews)
     }).catch(function (err) {
         console.error(err);
@@ -58,7 +63,7 @@ function getSimilarBooks(genre, isbn){
     $.ajax(similarBooksUrl, {
         method: 'GET',
     }).then(function (books) {
-        console.log(books);
+        //console.log(books);
         displaySimilarBooks(books, isbn)
     }).catch(function (err) {
         console.error(err);
@@ -130,7 +135,7 @@ function checkAvailability(url) {
     $.ajax(url, {
         method: 'GET',
     }).then(function (response) {
-        console.log(response)
+        // console.log(response)
         if(response.Availability == null){
             $("#borrow-button").html("<h3> Copies Currently Unavailable </h3>");
             $("#borrow-button").prop('disabled', true);
@@ -143,11 +148,35 @@ function checkAvailability(url) {
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+function checkBorrowed(url, checkAvailableUrl) {
+    // make an ajax call to the rest server to fetch book details
+    $.ajax(url, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (response) {
+        console.log("Check If Borrowed : ", response);
+        if(response.Issued == null){
+            checkAvailability(checkAvailableUrl)
+        }
+        else{
+            $("#borrow-button").css('display','none');
+            $("#return-button").css('display', 'block');
+        }
+
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 window.onload = function () {
     var url = document.location.href, params = url.split('?')[1].split('&')
-    var isbn = params[0].split('=')[1];
+    isbn = params[0].split('=')[1];
 
-    
     // fetch book details
     var bookDetailsUrl = baseUrl + "books/" + isbn;
     getBookDetails(bookDetailsUrl)
@@ -158,5 +187,75 @@ window.onload = function () {
 
     // check if copies available for borrowing
     var checkAvailableUrl = baseUrl + "books/available/" + isbn;
-    checkAvailability(checkAvailableUrl)
+
+    if(token != null){
+        //check if book if borrowed
+        var checkBorrowedUrl = baseUrl + "books/" + isbn + "/checkBorrow";
+        checkBorrowed(checkBorrowedUrl, checkAvailableUrl);
+    }
 }
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+$("#borrow-button").click(() => {
+    if(token == null){
+        window.location.replace("login.html");
+    }
+    else{
+        borrowUrl = baseUrl + "books/" + isbn + "/borrow"
+        $.ajax(borrowUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: 'JWT ' + token
+            },
+        }).then(function (response) {
+            console.log("Borrow : ", response);
+            if(response.Book == null){
+                $("#borrow-button").attr('data-target', '#borrowFailed');
+                $("#borrowFailed").modal('toggle');
+            }
+            else{
+                $("#borrow-button").attr('data-target', '#borrowSuccess');
+                $("#borrowSuccess").modal('toggle');
+                $("#borrow-button").css('display','none');
+                $("#return-button").css('display', 'block');
+            }
+    
+        }).catch(function (err) {
+            console.error(err);
+        });
+    }
+});
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+$("#return-button").click(() => {
+
+    returnUrl = baseUrl + "books/" + isbn + "/return"
+    $.ajax(returnUrl, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (response) {
+        console.log("Return : ", response);
+        if(response !== "Book Successfully Returned"){
+            $("#return-button").attr('data-target', '#returnFailed');
+            $("#returnFailed").modal('toggle');
+        }
+        else{
+            $("#borrow-button").attr('data-target', '#returnSuccessful');
+            $('#returnSuccessful').modal('toggle');
+            $("#borrow-button").css('display', 'block');
+            $("#return-button").css('display', 'none');
+            
+            console.log("BOOK RETURNED")
+        }
+
+    }).catch(function (err) {
+        console.error(err);
+    });
+
+});
+
+

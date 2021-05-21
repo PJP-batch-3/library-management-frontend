@@ -91,10 +91,15 @@
                         <h2 id="book-author"></h2>
                         <h3> Genre : <span id="book-genre"></span></h3>
                         <h3 id="book-publisher"></h3>
-                        <h3>Total Copies in the library : <span id="book-copies"></span></h3>
+                        <h3 style="padding-bottom:20px">Total Copies in the library : <span id="book-copies"></span></h3>
             
-                        <button id="borrow-button" class="btn btn-primary btn-sm mt-auto" >
+                        <button id="borrow-button" class="btn btn-primary btn-sm mt-auto" style="display: block;"
+                            data-toggle="modal">
                             <h3> Borrow Book </h3>
+                        </button>
+                        <button id="return-button" class="btn btn-warning btn-sm mt-auto" style="display: none"
+                            data-toggle="modal">
+                            <h3> Return Book </h3>
                         </button>
                     </div>
                 </div>
@@ -129,6 +134,57 @@
         </div>
     </div>
 
+    <!----------------------------------------------------------------------------------------------->
+    <!-- MODALS -->
+
+        <div class="modal fade" id="borrowSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src = "images/success_tick.png" alt = "Borrow Successfull">
+                    <h2>Book Borrowed for 30 Days!</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="returnSuccessful" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src = "images/success_tick.png" alt = "Return Successfull">
+                    <h2>Book Successfully Returned</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="borrowFailed" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img class="img-fluid" src = "images/fail_cross.png" alt = "Borrow Failed">
+                    <h2>Error!<br>Book Could Not Be Borrowed</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="returnFailed" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src = "images/fail_cross.png" alt = "Return Failed">
+                    <h2>Error!<br>Book Could Not Be Returned</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <!----------------------------------------------------------------------------------------------->
+    <!--Footer-->
 
     <footer class="footer footer-default">
         <div class="container">
