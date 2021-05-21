@@ -193,3 +193,7 @@
   .index-genre-heading {
     background-color:rgb(201, 195, 195);
   }
+
+  #book-title{
+    font-weight: 500;
+  }

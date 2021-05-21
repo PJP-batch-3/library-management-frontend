@@ -81,21 +81,18 @@
                 <div class="row m-3 p-3 border border-dark">
                     <div class="col-md-6 col-sm-12">
                         <div class="card w-75 mx-auto">
-                            <img class="img-fluid"
-                                src="https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9780/1413/9780141342559.jpg"
+                            <img class="img-fluid" id="book-cover"
                                 alt="Book cover image">
                         </div>
-                        <h3><b> Book Rating: </b> X/5.0</h3>
+                        <h3 id="book-rating"><!--BOOK RATING--></h3>
                     </div>
                     <div class="col-md-6 col-sm-12 text-left card-body flex-column d-flex">
-                        <b>
-                            <h3>Title: </h3>
-                            <h3>Author: </h3>
-                            <h3>Category: </h3>
-                            <h3>Publisher: </h3>
-                            <h3>Price: </h3>
-                            <h3>No. of Copies: </h3>
-                        </b>
+                        <b><h1 id="book-title"></h1></b>
+                        <h2 id="book-author"></h2>
+                        <h3> Genre : <span id="book-genre"></span></h3>
+                        <h3 id="book-publisher"></h3>
+                        <h3>Total Copies in the library : <span id="book-copies"></span></h3>
+            
                         <button class="btn btn-primary btn-sm mt-auto">
                             <h3> Borrow Book </h3>
                         </button>
@@ -111,18 +108,10 @@
                         <h4 class="card-title">Reviews</h4>
                     </div>
                     <div class="card m-0">
-                        <div class="m-0 mb-1 text-left col-12">
-                            <h5 class="card-text">userid 1 : sample review 1</h5>
+                        <div class="col-12" id="reviews">
+
                         </div>
-                        <div class="m-0 mb-1 text-left col-12">
-                            <h5 class="card-text">userid 2 : sample review 2</h5>
-                        </div>
-                        <!-- <div class="user-reviews">
-                        userid 1 : sample review 1
-                    </div>
-                    <div class="user-reviews">
-                        userid 2 : sample review 2
-                    </div> -->
+
                         <button class="btn btn-primary m-2" type="button"> ADD NEW REVIEW </button>
                     </div>
                 </div>
@@ -132,8 +121,8 @@
                     <div class="d-flex mb-2 text-left col-12 index-genre-heading">
                         <h4 class="card-title">Similar Books</h4>
                     </div>
-                    <div class="owl-carousel owl-theme" id="most-popular-books">
-                        <!-- Fill using carousel similar to whats done in books.js -->
+                    <div class="owl-carousel owl-theme" id="similar-books">
+                        <!--Filled From book.html -->
                     </div>
                 </div>
             </div>
@@ -174,6 +163,8 @@
     <script src="src/base.js" type="text/javascript"></script>
 
     <!-- Add ajax scripts here -->
+    <script src="src/book.js" type="text/javascript"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>
 
