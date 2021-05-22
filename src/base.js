@@ -26,7 +26,6 @@ $(function () {
                                     </a>\
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >\
                                         <a class="dropdown-item" href="profile.html">Profile</a>\
-                                        <a class="dropdown-item" href="borrowed_book.html">Order History</a>\
                                         <a class="dropdown-item" href="book_request.html">Book Request</a>\
                                         <a class="dropdown-item" href="index.html" onClick="logout()">Logout</a>\
                                     </div >\
