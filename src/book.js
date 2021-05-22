@@ -28,6 +28,7 @@ function getBookDetails(url) {
 
 function getReviews(url) {
     // make an ajax call to the rest server to fetch reviews
+    console.log(url);
     $.ajax(url, {
         method: 'GET',
     }).then(function (reviews) {
@@ -46,7 +47,7 @@ function displayReviews(reviews){
             review_display += '<blockquote class="blockquote text-left"> \
                 <p class="mb-0">'+ review.review +'</p><br> \
                 <p class="mb-0 text-right"><b> RATING : '+ review.rating +'/5 </b></p> \
-                <footer class="blockquote-footer text-right"> <cite title="Source Title">' + review.userName + '</cite></footer> \
+                <footer class="blockquote-footer text-right"> <cite title="Source Title">' + review.fullName + '</cite></footer> \
             </blockquote>';
         });
     }
