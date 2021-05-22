@@ -86,7 +86,7 @@ function applyFilterAndOrder(allbooks,filter="title",order="ASC"){
                                 <h5 class="card-title"> Genre: ' + b.genre +'</h5>\
                                 <h5 class="card-info"> Author: ' + b.author +'</h5>\
                                 <p class="card-text">'+ parseFloat(b.rating).toFixed(1) +' /5.0</p>\
-                                <a href="#" class="btn btn-primary">Show More</a>\
+                                <a href="book.html?isbn='+ b.isbn + '">Show More</a>\
                             </div>\
                         </div>\
                         </div>';
