@@ -12,7 +12,7 @@ function getBookDetails(url) {
         $('#book-title').html(books.Book.title);
         $('#book-author').html(books.Book.author);
         $('#book-genre').html(books.Book.genre);
-        $('#book-publisher').html(books.Book.publisher);
+        $('#book-publisher').html("Publisher : " + books.Book.publisher);
         $('#book-copies').html(books.Book.quantity);
         $('#book-rating').html("Rating: "+parseFloat(books.Book.rating).toFixed(1)+"/5.0");
         $('#book-cover').attr('src', books.Book.bookCover)
