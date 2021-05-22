@@ -150,6 +150,27 @@ function checkAvailability(url) {
     });
 }
 
+//--------------------------------------------------------------------------
+function checkBorrowLimit(url) {
+    // make an ajax call to the rest server to fetch book details
+    $.ajax(url, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (response) {
+        console.log(response)
+        if(response.success.currentBorrowedBooks >=5 ){
+            $("#borrow-button").html("<h3> Max Borrow Limit </h3>");
+            $("#borrow-button").prop('disabled', true);
+        }
+        
+    }).catch(function (err) {
+        console.error(err);
+        $(dom_id).html(error_msg);
+    });
+}
+
 //--------------------------------------------------------------------------------------------------------------------------
 
 function checkBorrowed(url, checkAvailableUrl) {
@@ -193,11 +214,15 @@ window.onload = function () {
 
     // check if copies available for borrowing
     var checkAvailableUrl = baseUrl + "books/available/" + isbn;
+    
+    // check borrow limit
+    var borrowlimitUrl = baseUrl + "users";
 
     if (token != null) {
         //check if book if borrowed
         var checkBorrowedUrl = baseUrl + "books/" + isbn + "/checkBorrow";
         checkBorrowed(checkBorrowedUrl, checkAvailableUrl);
+        checkBorrowLimit(borrowlimitUrl);
     }
 }
 
