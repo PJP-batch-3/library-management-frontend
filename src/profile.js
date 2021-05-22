@@ -7,11 +7,20 @@ function getUserDetails(token, url) {
         },
     }).then(function (user) {
         user = user.success;
-        // console.log(user);
+        console.log(user);
         $('#user-name').html(user.fullname);
         $('#user-email').html(user.email);
-        var fine = parseFloat(user.fine).toFixed(1);
-        if(fine===0.0){
+
+        var currCount = user.currentBorrowedBooks;
+        if(currCount<5){
+            $('#currCount').html('= '+ user.currentBorrowedBooks + '/(5)');
+        }
+        else{
+            $('#currCount').html('= ' + user.currentBorrowedBooks + " (Max limit reached(5)!!)");
+        }
+
+        var fine = user.fine;
+        if(fine===0){
             $('#pay-fine-button').html('No pending dues');
             $('#pay-fine-button').prop('disabled', true);
         } else{
