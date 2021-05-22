@@ -19,67 +19,7 @@
     <!-- tiny slider-->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <style type="text/css">
-
-        .book-card{
-
-        }
-
-        .book-image{
-            position: relative;
-            width: 600px;
-            height: 700px;
-            top: 10px;
-            right: 450px;
-
-        }
-
-        .book-details{
-            position: relative;
-            border: 5px solid black;
-            width: 800px;
-            height: 670px;
-            bottom: 660px;
-            left: 450px;
-
-        }
-
-        .borrow-button{
-            padding-top: 25px;
-        }
-
-        .reviews{
-            padding: 15px;
-            position: relative;
-            border: 5px solid grey;
-            right: 100px;
-            bottom: 600px;
-            width: 1300px;
-        }
-        .user-reviews{
-            margin: 20px;
-            padding: 15px;
-            border: 2px solid black;
-        }
-        .similar-books{
-            position: relative;
-            border: 5px solid grey;
-            right: 100px;
-            bottom: 500px;
-            width: 1300px;
-            height: 500px;
-        }
-        input[type="text"]
-        {
-            width: 60px
-        }
-        .button{
-            background-color: #008CBA;
-            color: white;
-            margin: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/css/style_borrow.css">
 </head>
 
 <body>
@@ -107,7 +47,7 @@
     </nav>
 
     <!-- Header -->
-    <div class="page-header header-filter" data-parallax="false" 
+    <div class="page-header header-filter" data-parallax="false"
         style="background-image: url('images/header_background.jpg')">
         <div class="container">
             <div class="row">
@@ -116,7 +56,7 @@
                         <form class="card-body" display="inline" method="GET" action="books.html">
                             <div class="row">
                                 <div class="col-md-10 col-sm-8">
-                                    <input type="text" class="form-control" placeholder="Search" id="search" name="keyword">
+                                    <input type="text" class="form-control" placeholder="Search" id="search" name="keyword" pattern="[\s\S]*\S[\s\S]*" required>
                                 </div>
                                 <div class="col-md-2 col-sm-4">
                                     <button type="submit" class="btn btn-primary btn-round inline">
@@ -129,60 +69,38 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     </div>
     <!-- Fixed template for all pages end here -->
 
     <div class="main main-raised">
         <div class="container">
-            <div class="section text-center">
-
-                <!-- Book card -->
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="book-card">
-                            <div class="book-image">
-                                <img alt="Book cover image" width="500" height="600">
-                            </div>
-                            <h3><b> Book Rating: </b> X/5</h3>
-                        </div>  
+            <!-- Main code goes here -->
+            <main>
+                <div class="basket">
+                <!-- <div class="basket-module">
+                    <label for="promo-code">Search borrowed books...</label>
+                    <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
+                    <button class="promo-code-cta">Apply</button>
+                </div> -->
+                    <div class="basket-labels">
+                        <ul>
+                            <li class="item item-heading">Book</li>
+                            <li class="price">Price</li>
+                            <li class="quantity">Quantity</li>
+                            <li class="subtotal">Subtotal</li>
+                        </ul>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="book-details">
-                                <b>
-                                    <h2>Title :  </h2> 
-                                    <h2>Author :  </h2> 
-                                    <h2>Category :  </h2> 
-                                    <h2>Publisher :  </h2> 
-                                </b>
-                                <button class="btn btn-success" type="button"><h3> Borrow Book </h3></button>
-                            </div>
+                    <div class="basket-product" id="allbookdetail">
+                        <h2 style="width: 100%; text-align: center;">Buy Some Books</h2>
+                        
                         </div>
                     </div>
-                        
                 </div>
-            </div>
-            
-                
-
-                <!-- Reviews -->
-
-            <div class="reviews">
-                <h2><b>Reviews<b></h2>
-                <div class="user-reviews">
-                    userid 1 : sample review 1 
                 </div>
-                <div class="user-reviews">
-                    userid 2 : sample review 2 
-                </div>
-                <button class="btn btn-primary btn-lg btn-block" type="button"> ADD NEW REVIEW </button>
-            </div>
+            </main>
+            <div class="section text-center">
 
-                <!-- Similar Books -->
-
-            <div class="similar-books">
-                <h2> <b> Similar Books </b></h2>
             </div>
         </div>
     </div>
@@ -192,7 +110,7 @@
             <nav class="float-left">
                 <ul>
                     <li>
-                        <a href="https://www.creative-tim.com/">
+                        <a>
                             Created by PJP Batch 3
                         </a>
                     </li>
@@ -217,7 +135,8 @@
 
     <!-- jquery scripts -->
     <!-- Compulsary script! Do not remove -->
-    <script src="src/base.js" type="text/javascript"></script>
+    <script src="./src/base.js" type="text/javascript"></script>
+    <script src="./src/borrowedBooks.js" type="text/javascript"></script>
 
     <!-- Add ajax scripts here -->
     
