@@ -130,6 +130,49 @@ function payfine(token, url) {
     });
 }
 
+function getReviewUtil(reviews, dom_id){
+    if(reviews.length){
+        var reviews_out = '';
+        reviews.forEach(function (review) {
+            book_title = review.bookTitle; // Replace with proper variable name
+            book_rating = review.rating;
+            book_review = review.review;
+            book_review_id = review.review;
+            edit_url = "#";
+
+            reviews_out += '<div class="card text-left">\
+                                <div class="card-body">\
+                                    <h5 class="card-title">'+ book_title + '</h5>\
+                                    <h6 class="card-subtitle mb-2 text-muted">'+ book_rating + '/5</h6>\
+                                    <p class="card-text">'+ book_review + '</p>\
+                                    <a href="'+ edit_url + '" class="card-link">Edit</a>\
+                                </div>\
+                            </div>';
+        });
+
+        $(dom_id).html(reviews_out);
+        console.log(reviews_out)
+    } else{
+        $(dom_id).html("<p>You have not reviewed any book(s) yet!</p>");    
+    }
+}
+
+function getReviews(token, url) {
+    // make an ajax call to the rest server to get the data
+    $.ajax(url, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (user) {
+        console.log(user.reviews);
+        var domId = '#reviews-container';
+        getReviewUtil(user.reviews, domId);
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
 $( document ).ready(function() {
     // console.log( "ready!" );
     var token = sessionStorage.getItem('token');
@@ -142,6 +185,10 @@ $( document ).ready(function() {
     // fetch borrowed books details
     var borrowedBooksUrl = baseUrl + 'users/borrowedBooks';
     getBorrowedBooks(token, borrowedBooksUrl);
+
+    // fetch user reviews
+    var reviewUrl = baseUrl + 'users/reviews';
+    getReviews(token, reviewUrl);
 
     $("#confirm-payment-button").click(function(){
         var paymentUrl = baseUrl + 'users/payFine';
