@@ -112,6 +112,22 @@ function getBorrowedBooks(token, url) {
     });
 }
 
+function payfine(token, url) {
+    // make an ajax call to the rest server to get the data
+    $.ajax(url, {
+        method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
+    }).then(function (user) {
+        console.log(user);
+        // alert("Payment was successful!");
+        if(!alert('Payment was successful!')){window.location.reload();}
+    }).catch(function (err) {
+        console.error(err);
+        alert("Payment failed!");
+    });
+}
 
 $( document ).ready(function() {
     // console.log( "ready!" );
@@ -125,5 +141,10 @@ $( document ).ready(function() {
     // fetch borrowed books details
     var borrowedBooksUrl = baseUrl + 'users/borrowedBooks';
     getBorrowedBooks(token, borrowedBooksUrl);
+
+    $("#confirm-payment-button").click(function(){
+        var paymentUrl = baseUrl + 'users/payFine';
+        payfine(token, paymentUrl)
+    });
 
 });
