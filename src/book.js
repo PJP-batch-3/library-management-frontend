@@ -264,7 +264,7 @@ $("#return-button").click(() => {
 
 //post a review------------------------------------------------------------------------------------------------
 $('#postReview').click(function () {
-    var postReviewURL=baseUrl + "books/" + isbn + "/postReview";
+    var postReviewURL=baseUrl + "books/" + isbn + "/reviews";
     var review = $('#reviewEntered').val();
     
     
