@@ -14,7 +14,7 @@ function getBookDetails(url) {
         $('#book-genre').html(books.Book.genre);
         $('#book-publisher').html("Publisher : " + books.Book.publisher);
         $('#book-copies').html(books.Book.quantity);
-        $('#book-rating').html("Rating: "+parseFloat(books.Book.rating).toFixed(1)+"/5.0");
+        $('#book-rating').html("Rating: " + parseFloat(books.Book.rating).toFixed(1) + "/5.0");
         $('#book-cover').attr('src', books.Book.bookCover)
         getSimilarBooks(books.Book.genre, books.Book.isbn);
 
@@ -40,18 +40,18 @@ function getReviews(url) {
     });
 }
 
-function displayReviews(reviews){
+function displayReviews(reviews) {
     var review_display = " ";
-    if(reviews.length){
-        reviews.forEach(function (review){
+    if (reviews.length) {
+        reviews.forEach(function (review) {
             review_display += '<blockquote class="blockquote text-left"> \
-                <p class="mb-0">'+ review.review +'</p><br> \
-                <p class="mb-0 text-right"><b> RATING : '+ review.rating +'/5 </b></p> \
+                <p class="mb-0">'+ review.review + '</p><br> \
+                <p class="mb-0 text-right"><b> RATING : '+ review.rating + '/5 </b></p> \
                 <footer class="blockquote-footer text-right"> <cite title="Source Title">' + review.fullName + '</cite></footer> \
             </blockquote>';
         });
     }
-    else{
+    else {
         review_display += "<h3><b>There are no reviews for this book!</b></h3>"
     }
     $("#reviews").html(review_display);
@@ -59,7 +59,7 @@ function displayReviews(reviews){
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-function getSimilarBooks(genre, isbn){
+function getSimilarBooks(genre, isbn) {
     var similarBooksUrl = baseUrl + "books/genre/" + genre
     $.ajax(similarBooksUrl, {
         method: 'GET',
@@ -73,7 +73,7 @@ function getSimilarBooks(genre, isbn){
 }
 
 function displaySimilarBooks(books, ogIsbn) {
-    
+
     var books_out = '';
     books = books.ListOfBooks;
 
@@ -84,7 +84,7 @@ function displaySimilarBooks(books, ogIsbn) {
         book_isbn = book.isbn;
         book_rating = book.rating
 
-        if(book_isbn != ogIsbn){
+        if (book_isbn != ogIsbn) {
             books_out += '<div class="carouselss-item">\
                             <a href="book.html?isbn='+ book_isbn + '">\
                                 <div class="carouselss-item-image">\
@@ -92,8 +92,8 @@ function displaySimilarBooks(books, ogIsbn) {
                                 </div>\
                                 <div class="carouselss-item-text overlay-books align-middle">\
                                 <span class="title">'+ book_title + '</span>\
-                                <span class="info"><h6>By: '+ book_author +'</h6><h5 class="books-rating">\
-                                RATING: '+ parseFloat(book_rating).toFixed(1) +'/5.0</h5></span>\
+                                <span class="info"><h6>By: '+ book_author + '</h6><h5 class="books-rating">\
+                                RATING: '+ parseFloat(book_rating).toFixed(1) + '/5.0</h5></span>\
                                 </div>\
                             </a>\
                         </div>';
@@ -114,18 +114,18 @@ function displaySimilarBooks(books, ogIsbn) {
                 margin: 10,
                 stagePadding: 20,
                 nav: false,
-                loop: (books.length>2)?true:false
+                loop: (books.length > 2) ? true : false
             },
             600: {
                 items: 3,
                 margin: 15,
                 stagePadding: 50,
                 nav: false,
-                loop: (books.length>3)?true:false
+                loop: (books.length > 3) ? true : false
             },
             1092: {
                 items: 5,
-                loop: (books.length>5)?true:false
+                loop: (books.length > 5) ? true : false
             }
         }
     });
@@ -140,7 +140,7 @@ function checkAvailability(url) {
         method: 'GET',
     }).then(function (response) {
         // console.log(response)
-        if(response.Availability == null){
+        if (response.Availability == null) {
             $("#borrow-button").html("<h3> Copies Currently Unavailable </h3>");
             $("#borrow-button").prop('disabled', true);
         }
@@ -161,16 +161,19 @@ function checkBorrowed(url, checkAvailableUrl) {
         },
     }).then(function (response) {
         console.log("Check If Borrowed : ", response);
-        if(response.Issued == null){
+        if (response.Issued == null) {
             checkAvailability(checkAvailableUrl)
         }
-        else{
-            $("#borrow-button").css('display','none');
+        else {
+            $("#borrow-button").css('display', 'none');
             $("#return-button").css('display', 'block');
         }
 
     }).catch(function (err) {
         console.error(err);
+        if (err["status"]==401) {
+            logout();
+        }
     });
 }
 
@@ -191,7 +194,7 @@ window.onload = function () {
     // check if copies available for borrowing
     var checkAvailableUrl = baseUrl + "books/available/" + isbn;
 
-    if(token != null){
+    if (token != null) {
         //check if book if borrowed
         var checkBorrowedUrl = baseUrl + "books/" + isbn + "/checkBorrow";
         checkBorrowed(checkBorrowedUrl, checkAvailableUrl);
@@ -201,10 +204,10 @@ window.onload = function () {
 //--------------------------------------------------------------------------------------------------------------------------
 
 $("#borrow-button").click(() => {
-    if(token == null){
+    if (token == null) {
         window.location.replace("login.html");
     }
-    else{
+    else {
         console.log(isbn);
         borrowUrl = baseUrl + "books/" + isbn + "/borrow"
         $.ajax(borrowUrl, {
@@ -214,19 +217,22 @@ $("#borrow-button").click(() => {
             },
         }).then(function (response) {
             console.log("Borrow : ", response);
-            if(response.Book == null){
+            if (response.Book == null) {
                 $("#borrow-button").attr('data-target', '#borrowFailed');
                 $("#borrowFailed").modal('toggle');
             }
-            else{
+            else {
                 $("#borrow-button").attr('data-target', '#borrowSuccess');
                 $("#borrowSuccess").modal('toggle');
-                $("#borrow-button").css('display','none');
+                $("#borrow-button").css('display', 'none');
                 $("#return-button").css('display', 'block');
             }
-    
+
         }).catch(function (err) {
             console.error(err);
+            if (err["status"]==401) {
+                logout();
+            }
         });
     }
 });
@@ -243,51 +249,68 @@ $("#return-button").click(() => {
         },
     }).then(function (response) {
         console.log("Return : ", response);
-        if(response !== "Book Successfully Returned"){
+        if (response !== "Book Successfully Returned") {
             $("#return-button").attr('data-target', '#returnFailed');
             $("#returnFailed").modal('toggle');
         }
-        else{
+        else {
             $("#borrow-button").attr('data-target', '#returnSuccessful');
             $('#returnSuccessful').modal('toggle');
             $("#borrow-button").css('display', 'block');
             $("#return-button").css('display', 'none');
-            
+
             console.log("BOOK RETURNED")
         }
 
     }).catch(function (err) {
         console.error(err);
+        if (err["status"]==401) {
+            logout();
+        }
     });
 
 });
 
+$('#addReviewPre').click(function() {
+    var token = sessionStorage.getItem('token');
+    if (token == null) {
+        logout();
+    }
+});
 
 //post a review------------------------------------------------------------------------------------------------
 $('#postReview').click(function () {
-    var postReviewURL=baseUrl + "books/" + isbn + "/reviews";
+    var postReviewURL = baseUrl + "books/" + isbn + "/reviews";
     var review = $('#message-text').val();
     var rating = $('#message-rating').val();
-    console.log("Review :"+review + rating);
-    
+    console.log("Review :" + review + rating);
+
     var token = sessionStorage.getItem('token');
-    if (token) {   // Check email validation
+    if (token == null) {
+        logout();
+    }
+    else {
         $.ajax(postReviewURL, {
             method: 'POST',
             data: JSON.stringify({
                 review: review,
-                rating : rating
+                rating: rating
             }),
             headers: {
                 Authorization: 'JWT ' + token
-            }, 
+            },
             contentType: "application/json",
             dataType: "json",
         }).then(function (obj) {
             console.log(obj['success']);
+            var out='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Post a Review</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Review Submitted</div><div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div>';
+            $("#addReview").html(out);
             getReviews(bookReviewsUrl);
         }).catch(function (err) {
             console.error(err);
+            if (err["status"]==401) {
+                logout();
+            }
             alert("Error! Request not sent.");
         });
         getReviews(bookReviewsUrl)

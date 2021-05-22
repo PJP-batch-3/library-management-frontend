@@ -3,6 +3,7 @@ var error_msg = "Could not load from server!"
 
 function logout() {
     sessionStorage.removeItem('token');
+    window.location.replace("login.html");
 }
 
 $(function () {
@@ -34,6 +35,9 @@ $(function () {
                         </ul>';
         $("#navigation-items").html(nav_items);
     } else {
+        if (window.location.pathname.split('/').slice(-1)[0]=='profile.html' || window.location.pathname.split('/').slice(-1)[0]=='book_request.html') {
+            $(location).attr('href', 'login.html');
+        }
         var nav_items = '<ul class="navbar-nav ml-auto">\
                             <li class="nav-item">\
                                 <a href="index.html" class="nav-link">\
