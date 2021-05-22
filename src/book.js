@@ -1,6 +1,6 @@
 var isbn = "";
 var token = sessionStorage.getItem('token');
-
+var bookReviewsUrl;
 //--------------------------------------------------------------------------------------------------------------------------
 
 function getBookDetails(url) {
@@ -31,7 +31,7 @@ function getReviews(url) {
     $.ajax(url, {
         method: 'GET',
     }).then(function (reviews) {
-        //console.log(reviews);
+        console.log(reviews);
         displayReviews(reviews.ListOfReviews)
     }).catch(function (err) {
         console.error(err);
@@ -175,7 +175,6 @@ function checkBorrowed(url, checkAvailableUrl) {
 
 
 //--------------------------------------------------------------------------------------------------------------------------
-
 window.onload = function () {
     var url = document.location.href, params = url.split('?')[1].split('&')
     isbn = params[0].split('=')[1];
@@ -185,7 +184,7 @@ window.onload = function () {
     getBookDetails(bookDetailsUrl)
 
     // fetch book reviews
-    var bookReviewsUrl = baseUrl + "books/" + isbn + "/reviews";
+    bookReviewsUrl = baseUrl + "books/" + isbn + "/reviews";
     getReviews(bookReviewsUrl)
 
     // check if copies available for borrowing
@@ -205,6 +204,7 @@ $("#borrow-button").click(() => {
         window.location.replace("login.html");
     }
     else{
+        console.log(isbn);
         borrowUrl = baseUrl + "books/" + isbn + "/borrow"
         $.ajax(borrowUrl, {
             method: 'GET',
@@ -265,15 +265,17 @@ $("#return-button").click(() => {
 //post a review------------------------------------------------------------------------------------------------
 $('#postReview').click(function () {
     var postReviewURL=baseUrl + "books/" + isbn + "/reviews";
-    var review = $('#reviewEntered').val();
-    
+    var review = $('#message-text').val();
+    var rating = $('#message-rating').val();
+    console.log("Review :"+review + rating);
     
     var token = sessionStorage.getItem('token');
     if (token) {   // Check email validation
         $.ajax(postReviewURL, {
             method: 'POST',
             data: JSON.stringify({
-                review: review
+                review: review,
+                rating : rating
             }),
             headers: {
                 Authorization: 'JWT ' + token
@@ -281,14 +283,12 @@ $('#postReview').click(function () {
             contentType: "application/json",
             dataType: "json",
         }).then(function (obj) {
-            console.log(obj['success'])
-
-var out='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Post a Review</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Review Submitted</div><div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div>';            $("#postReview").html(out);
-            $("#addReview").html(out);
-
+            console.log(obj['success']);
+            getReviews(bookReviewsUrl);
         }).catch(function (err) {
             console.error(err);
             alert("Error! Request not sent.");
         });
+        getReviews(bookReviewsUrl)
     }
 });

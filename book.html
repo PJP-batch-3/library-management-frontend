@@ -196,8 +196,14 @@
                 <form>
                   
                   <div class="form-group">
-                    <label for="message-text" class="col-form-label" id="reviewEntered">Review:</label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <p>
+                        <label for="message-rating" class="col-form-label" id="reviewEntered">Rating:</label>
+                        <span style="padding-left: 10px;"><input type = "number" id = "message-rating" min="1" max="5" value = "5" style="padding-left: 10px;"></span>
+                    </p>
+                    <p>    
+                        <label for="message-text" class="col-form-label" id="reviewEntered">Review:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </p>
                   </div>
                 </form>
               </div>
