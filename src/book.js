@@ -262,3 +262,33 @@ $("#return-button").click(() => {
 });
 
 
+//post a review------------------------------------------------------------------------------------------------
+$('#postReview').click(function () {
+    var postReviewURL=baseUrl + "books/" + isbn + "/postReview";
+    var review = $('#reviewEntered').val();
+    
+    
+    var token = sessionStorage.getItem('token');
+    if (token) {   // Check email validation
+        $.ajax(postReviewURL, {
+            method: 'POST',
+            data: JSON.stringify({
+                review: review
+            }),
+            headers: {
+                Authorization: 'JWT ' + token
+            }, 
+            contentType: "application/json",
+            dataType: "json",
+        }).then(function (obj) {
+            console.log(obj['success'])
+
+var out='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Post a Review</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Review Submitted</div><div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div>';            $("#postReview").html(out);
+            $("#addReview").html(out);
+
+        }).catch(function (err) {
+            console.error(err);
+            alert("Error! Request not sent.");
+        });
+    }
+});
