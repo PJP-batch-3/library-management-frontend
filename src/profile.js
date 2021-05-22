@@ -26,6 +26,7 @@ function getUserDetails(token, url) {
         } else{
             $('#pay-fine-button').html('Pay Fine');
             $('#pay-fine-button').prop('disabled', false);
+            $('#fine-amount').html(fine);
         }
 
     }).catch(function (err) {
