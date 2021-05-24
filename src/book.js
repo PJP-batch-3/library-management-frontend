@@ -286,6 +286,8 @@ $("#return-button").click(() => {
 
             console.log("BOOK RETURNED")
         }
+        //new addition
+        location.reload();
 
     }).catch(function (err) {
         console.error(err);
