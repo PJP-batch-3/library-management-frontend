@@ -100,6 +100,38 @@
         </div>
     </div>
 
+    <!-- Edit Review -->
+    <div class="modal fade" id="editReview" tabindex="-1" role="dialog" aria-labelledby="editReviewLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reviewModalTitle">Edit your Review</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                
+                <div class="form-group">
+                  <p>
+                      <label for="message-rating" class="col-form-label" id="reviewEntered">Rating:</label>
+                      <span style="padding-left: 10px;"><input type = "number" id = "message-rating" min="1" max="5" value = "5" style="padding-left: 10px;"></span>
+                  </p>
+                  <p>    
+                      <label for="message-text" class="col-form-label" id="reviewEntered">Review:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                  </p>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="updateReview" data-dismiss="modal">Update</button>
+            </div>
+          </div>
+        </div>
+    </div>
     <!-- Profile Page -->
     <div class="main main-raised">
         <div class="profile-content">
@@ -130,14 +162,14 @@
                         <div class="d-flex mb-2 text-left col-12 index-genre-heading">
                             <h4 class="card-title">Currently Borrowed Books <span class ="primary" id="currCount"></span></h4>
                         </div>
-                        <div class="owl-carousel owl-theme" id="currently-borrowed-books">
+                        <div class="owl-carousel owl-theme mb-3" id="currently-borrowed-books">
                             <!-- Fetched from server by profile.js -->
                         </div>
     
                         <div class="d-flex mb-2 text-left col-12 index-genre-heading">
                             <h4 class="card-title">Previously Borrowed Books</h4>
                         </div>
-                        <div class="owl-carousel owl-theme" id="previously-borrowed-books">
+                        <div class="owl-carousel owl-theme mb-3" id="previously-borrowed-books">
                             <!-- Fetched from server by profile.js -->    
                         </div>
     
