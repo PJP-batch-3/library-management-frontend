@@ -7,7 +7,7 @@ function getUserDetails(token, url) {
         },
     }).then(function (user) {
         user = user.success;
-        console.log(user);
+        // console.log(user);
         $('#user-name').html(user.fullname);
         $('#user-email').html(user.email);
 
@@ -140,24 +140,30 @@ function getReviewUtil(reviews, dom_id) {
     if (reviews.length) {
         var reviews_out = '';
         reviews.forEach(function (review) {
+            // console.log(review);
             book_title = review.bookTitle; // Replace with proper variable name
             book_rating = review.rating;
             book_review = review.review;
-            book_review_id = review.review;
+            book_review_id = review.reviewId;
             edit_url = "#";
 
-            reviews_out += '<div class="card text-left">\
-                                <div class="card-body">\
-                                    <h5 class="card-title">'+ book_title + '</h5>\
-                                    <h6 class="card-subtitle mb-2 text-muted">'+ book_rating + '/5</h6>\
-                                    <p class="card-text">'+ book_review + '</p>\
-                                    <a href="'+ edit_url + '" class="card-link">Edit</a>\
-                                </div>\
-                            </div>';
+            reviews_out += `<div class="card text-left">
+                                <div class="card-body">
+                                    <h5 class="card-title">${book_title}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${book_rating}/5</h6>
+                                    <p class="card-text" id="review-${book_review_id}">${book_review}</p>
+                                    <span class="card-link" data-toggle="modal" data-target="#editReview"
+                                        data-whatever="@mdo" class="editReviewPre">
+                                        <a href="#review-${book_review_id}" class="card-link"
+                                        onclick="setUpdateMethod(${book_review_id}, ${book_rating}, ${review.isbn})">
+                                        Edit</a>
+                                    <span>
+                                </div>
+                            </div>`;
         });
 
         $(dom_id).html(reviews_out);
-        console.log(reviews_out)
+        // console.log(reviews_out)
     } else {
         $(dom_id).html("<p>You have not reviewed any book(s) yet!</p>");
     }
@@ -171,7 +177,7 @@ function getReviews(token, url) {
             Authorization: 'JWT ' + token
         },
     }).then(function (user) {
-        console.log(user.reviews);
+        // console.log(user.reviews);
         var domId = '#reviews-container';
         getReviewUtil(user.reviews, domId);
     }).catch(function (err) {
@@ -180,6 +186,54 @@ function getReviews(token, url) {
             logout();
         }
     });
+}
+
+//update review------------------------------------------------------------------------------------------------
+function setUpdateMethod(reviewId, curRating, isbn) {
+    curReview = $(`#review-${reviewId}`).html();
+    $('#message-text').val(curReview);
+    $('#message-rating').val(curRating);
+    $('#updateReview').click(function () {
+        var updateReviewURL = baseUrl + "books/" + isbn + "/reviews/" + reviewId;
+        var review = $('#message-text').val();
+        var rating = $('#message-rating').val();
+        // console.log("Review :" + review + rating);
+
+        var token = sessionStorage.getItem('token');
+        if (token == null) {
+            logout();
+        }
+        else {
+            $.ajax(updateReviewURL, {
+                method: 'PUT',
+                data: JSON.stringify({
+                    review: review,
+                    rating: rating
+                }),
+                headers: {
+                    Authorization: 'JWT ' + token
+                },
+                contentType: "application/json",
+                dataType: "json",
+            }).then(function (obj) {
+                // console.log(obj['success']);
+                // fetch user reviews
+                var reviewUrl = baseUrl + 'users/reviews';
+                getReviews(token, reviewUrl);
+            }).catch(function (err) {
+                console.error(err);
+                if (err["status"]==401) {
+                    logout();
+                }
+                alert("Error! Request not sent.");
+            });
+        
+            // fetch user reviews
+            var reviewUrl = baseUrl + 'users/reviews';
+            getReviews(token, reviewUrl);
+        }
+    });
+    // console.log(reviewId, curReview, curRating);
 }
 
 $(document).ready(function () {
@@ -207,5 +261,22 @@ $(document).ready(function () {
             payfine(token, paymentUrl)
         });
 
+        // $("#10").click(function (event) {
+        //     // var paymentUrl = baseUrl + 'users/payFine';
+        //     // payfine(token, paymentUrl)
+        //     event.stopPropagation();
+        //     event.stopImmediatePropagation();
+        //     console.log(this.id);
+        //     console.log("hi");
+        // });
+
+        // $('.card-link').click( function(e) {
+        //     // e.preventDefault();
+        //     // e.stopPropagation();
+        //     // e.stopImmediatePropagation();
+        //     // alert("perform action");
+        //     console.log("hi");
+        //   });
     }
 });
+
