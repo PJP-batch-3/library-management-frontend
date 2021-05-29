@@ -128,7 +128,6 @@ function payfine(token, url) {
         },
     }).then(function (user) {
         console.log(user);
-        // alert("Payment was successful!");
         if (!alert('Payment was successful!')) { window.location.reload(); }
     }).catch(function (err) {
         console.error(err);
