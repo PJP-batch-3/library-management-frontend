@@ -31,9 +31,24 @@ function getReviews(url) {
     console.log(url);
     $.ajax(url, {
         method: 'GET',
+        headers: {
+            Authorization: 'JWT ' + token
+        },
     }).then(function (reviews) {
         console.log(reviews);
-        displayReviews(reviews.ListOfReviews)
+        displayReviews(reviews.ListOfReviews);
+        if(reviews.isReviewedByUser === false){
+            $("#addReviewPre").html("ADD NEW REVIEW");
+            $("#reviewModalTitle").html("Post a review");
+            $("#postReview").css("display", "block");
+            $("#updateReview").css("display", "none");
+        } else{
+            $("#addReviewPre").html("EDIT REVIEW");
+            $("#reviewModalTitle").html("Edit your review");
+            $("#postReview").css("display", "none");
+            $("#updateReview").css("display", "block");
+            setUpdateMethod(reviews.isReviewedByUser);
+        }
     }).catch(function (err) {
         console.error(err);
         $(dom_id).html(error_msg);
@@ -330,8 +345,6 @@ $('#postReview').click(function () {
             dataType: "json",
         }).then(function (obj) {
             console.log(obj['success']);
-            var out='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Post a Review</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Review Submitted</div><div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div>';
-            $("#addReview").html(out);
             getReviews(bookReviewsUrl);
         }).catch(function (err) {
             console.error(err);
@@ -343,3 +356,42 @@ $('#postReview').click(function () {
         getReviews(bookReviewsUrl)
     }
 });
+
+//update review------------------------------------------------------------------------------------------------
+function setUpdateMethod(reviewId) {
+    $('#updateReview').click(function () {
+        var updateReviewURL = baseUrl + "books/" + isbn + "/reviews/" + reviewId;
+        var review = $('#message-text').val();
+        var rating = $('#message-rating').val();
+        console.log("Review :" + review + rating);
+
+        var token = sessionStorage.getItem('token');
+        if (token == null) {
+            logout();
+        }
+        else {
+            $.ajax(updateReviewURL, {
+                method: 'PUT',
+                data: JSON.stringify({
+                    review: review,
+                    rating: rating
+                }),
+                headers: {
+                    Authorization: 'JWT ' + token
+                },
+                contentType: "application/json",
+                dataType: "json",
+            }).then(function (obj) {
+                console.log(obj['success']);
+                getReviews(bookReviewsUrl);
+            }).catch(function (err) {
+                console.error(err);
+                if (err["status"]==401) {
+                    logout();
+                }
+                alert("Error! Request not sent.");
+            });
+            getReviews(bookReviewsUrl)
+        }
+    });
+}
