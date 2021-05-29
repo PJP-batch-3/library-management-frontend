@@ -193,6 +193,8 @@ function setUpdateMethod(reviewId, curRating, isbn) {
     curReview = $(`#review-${reviewId}`).html();
     $('#message-text').val(curReview);
     $('#message-rating').val(curRating);
+
+    $('#updateReview').unbind('click');
     $('#updateReview').click(function () {
         var updateReviewURL = baseUrl + "books/" + isbn + "/reviews/" + reviewId;
         var review = $('#message-text').val();
