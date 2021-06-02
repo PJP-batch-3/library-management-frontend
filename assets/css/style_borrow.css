@@ -75,12 +75,8 @@
     float: left;
     }
 
-    .price:before,
-    .subtotal:before,
-    .subtotal-value:before,
-    .total-value:before,
-    .promo-value:before {
-    content: '£';
+    .price:before {
+    content: '$';
     }
 
     .hide {
