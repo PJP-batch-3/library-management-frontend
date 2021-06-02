@@ -32,8 +32,8 @@ if (keyword == "") {
                             <div class="card">\
                                 <img class="card-img-top" src=' + b.bookCover + ' alt="Card image cap">\
                                 <div class="card-body">\
-                                <h5 class="card-title"> Title: ' + b.title + '</h5>\
-                                <h5 class="card-title"> Genre: ' + b.genre + '</h5>\
+                                <h3 class="card-title">' + b.title + '</h3>\
+                                <h5 class="card-title font-italic"> Genre: ' + b.genre + '</h5>\
                                 <h5 class="card-info"> Author: ' + b.author + '</h5>\
                                 <p class="card-text">'+ parseFloat(b.rating).toFixed(1) + ' /5.0</p>\
                                 <a href="book.html?isbn='+ b.isbn + '" class="btn btn-primary">Show More</a>\
